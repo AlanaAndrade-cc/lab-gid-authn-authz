@@ -1,0 +1,27 @@
+[project]
+name = "lab-gid-authn-authz"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Alana Andrade", email = "alana.vanessa.pimentel.toldo.andrade@ccc.ufcg.edu.br" }
+]
+requires-python = ">=3.15"
+dependencies = [
+    "bcrypt>=5.0.0",
+    "bruno>=0.0.1",
+    "dotenv>=0.9.9",
+    "fastapi>=0.165.0",
+    "httpx2>=2.16.2",
+    "pyjwt>=2.15.1",
+    "pytest>=9.2.0",
+    "python-multipart>=0.0.34",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+lab-gid-authn-authz = "lab_gid_authn_authz:main"
+
+[build-system]
+requires = ["uv_build>=0.13.7,<0.14.0"]
+build-backend = "uv_build"
