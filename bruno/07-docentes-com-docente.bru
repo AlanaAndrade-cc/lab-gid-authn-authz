@@ -1,0 +1,38 @@
+meta {
+  name: 07 - Docentes com token de docente
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/docentes
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+tests {
+  test("status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("três docentes do seed", function () {
+    const body = res.getBody();
+    expect(body).to.be.an("array");
+    expect(body).to.have.lengthOf(3);
+    expect(body.map(function (d) { return d.name; })).to.have.members([
+      "Dalton S.",
+      "Andrey E.",
+      "Patricia D."
+    ]);
+  });
+
+  test("campos de cada docente", function () {
+    res.getBody().forEach(function (d) {
+      expect(d).to.have.all.keys("sub", "name", "email");
+      expect(d.sub).to.be.a("string");
+      expect(d.email).to.contain("@exemplo.com");
+    });
+  });
+}

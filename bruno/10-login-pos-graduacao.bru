@@ -1,0 +1,40 @@
+meta {
+  name: 10 - Login pós-graduação
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{baseUrl}}/api/login
+}
+
+headers {
+  content-type: application/x-www-form-urlencoded
+}
+
+body {
+  username=arthur&password=senha456
+}
+
+script:post-response {
+  if (res.getStatus() === 200) {
+    bru.setVar("posToken", res.getBody().access_token);
+  }
+}
+
+tests {
+  test("status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("campos do token", function () {
+    const body = res.getBody();
+    expect(body).to.have.property("access_token");
+    expect(body.token_type).to.equal("bearer");
+    expect(body.expires_in).to.equal(1800);
+  });
+
+  test("token da pós-graduação capturado", function () {
+    expect(res.getBody().access_token).to.be.a("string");
+  });
+}

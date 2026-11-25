@@ -1,0 +1,27 @@
+meta {
+  name: 11 - Perfil com token de pós-graduação
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{baseUrl}}/api/perfil
+}
+
+headers {
+  Authorization: Bearer {{posToken}}
+}
+
+tests {
+  test("status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("claims da pós-graduação", function () {
+    const body = res.getBody();
+    expect(body.sub).to.equal("arthur");
+    expect(body.role).to.equal("pos-graduacao");
+    expect(body.name).to.equal("Arthur F.");
+    expect(body.email).to.equal("arthur@exemplo.com");
+  });
+}

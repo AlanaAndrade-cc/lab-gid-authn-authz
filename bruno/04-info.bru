@@ -1,0 +1,27 @@
+meta {
+  name: 04 - Info público
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/info
+}
+
+tests {
+  test("status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("payload mínimo", function () {
+    const body = res.getBody();
+    expect(body).to.have.all.keys("name", "version", "description");
+  });
+
+  test("valores do contrato", function () {
+    const body = res.getBody();
+    expect(body.name).to.equal("GID Auth API");
+    expect(body.version).to.equal("1.0.0");
+    expect(body.description).to.equal("API toy de autenticação para o sistema GID");
+  });
+}

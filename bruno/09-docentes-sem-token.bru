@@ -1,0 +1,19 @@
+meta {
+  name: 09 - Docentes sem token
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{baseUrl}}/api/docentes
+}
+
+tests {
+  test("status 401", function () {
+    expect(res.getStatus()).to.equal(401);
+  });
+
+  test("mensagem do OAuth2", function () {
+    expect(res.getBody().detail).to.equal("Not authenticated");
+  });
+}

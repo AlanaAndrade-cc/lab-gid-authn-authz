@@ -1,0 +1,23 @@
+meta {
+  name: 08 - Docentes com token de aluno
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{baseUrl}}/api/docentes
+}
+
+headers {
+  Authorization: Bearer {{studentToken}}
+}
+
+tests {
+  test("status 403", function () {
+    expect(res.getStatus()).to.equal(403);
+  });
+
+  test("mensagem de acesso negado", function () {
+    expect(res.getBody().detail).to.equal("Acesso negado");
+  });
+}

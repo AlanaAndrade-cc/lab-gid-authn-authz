@@ -1,0 +1,19 @@
+meta {
+  name: 06 - Perfil sem token
+  type: http
+  seq: 6
+}
+
+get {
+  url: {{baseUrl}}/api/perfil
+}
+
+tests {
+  test("status 401", function () {
+    expect(res.getStatus()).to.equal(401);
+  });
+
+  test("mensagem do OAuth2", function () {
+    expect(res.getBody().detail).to.equal("Not authenticated");
+  });
+}

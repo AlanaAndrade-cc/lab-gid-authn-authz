@@ -1,0 +1,27 @@
+meta {
+  name: 05 - Perfil com token
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/perfil
+}
+
+headers {
+  Authorization: Bearer {{token}}
+}
+
+tests {
+  test("status 200", function () {
+    expect(res.getStatus()).to.equal(200);
+  });
+
+  test("claims do docente", function () {
+    const body = res.getBody();
+    expect(body.sub).to.equal("dalton");
+    expect(body.role).to.equal("docente");
+    expect(body.name).to.equal("Dalton S.");
+    expect(body.email).to.equal("dalton@exemplo.com");
+  });
+}
